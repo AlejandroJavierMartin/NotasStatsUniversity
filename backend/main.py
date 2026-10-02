@@ -1,18 +1,5 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
+from app.main import app
 
-app = FastAPI(title="Notas Stats v5")
-
-class Nota(BaseModel):
-    estudiante_id:int
-    asignatura_id:int
-    valor:str|None=None
-    estado:str|None=None
-
-@app.get("/")
-def home():
-    return {"app":"Notas Stats v5","status":"running"}
-
-@app.post("/notas")
-def crear_nota(nota:Nota):
-    return nota
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
